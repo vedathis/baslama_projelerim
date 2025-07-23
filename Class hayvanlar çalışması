@@ -1,0 +1,73 @@
+import time
+print("""                                          Hayvanlar
+
+1.Atın özelliklerini görmek için 1'e tıklayınız.
+2.Köpeklerin özelliklerini görmek için 2'ye tıklayınız
+3.Kuşların özelliklerini görmek için 3'e tıklayınız
+4.Hayvanların ortak özelliklerini görmek icin 4'e tıklayınız.
+
+Çıkmak için q'ya basınız.""")
+class Hayvanlar():
+    def __init__(self,hücre ="Hayvanlar hücrelerden oluşur (genellikle çok hücrelidirler)",beslenme = "Enerji ihtiyaçlarını karşılamak için beslenirler",solunum = "Yaşamak için solunum yaparlar (oksijenli veya oksijensiz)",çoğalma = "Türlerini devam ettirmek için çoğalırlar",boşaltım ="Zararlı atıkları vücutlarından uzaklaştırırlar",yaşam_döngüsü ="Doğar, büyür, yaşlanır ve ölürler"):
+        self.hücre = hücre
+        self.beslenme = beslenme
+        self.solunum = solunum
+        self.çoğalma = çoğalma
+        self.boşaltım = boşaltım
+        self.yaşam_döngüsü = yaşam_döngüsü
+    def ortak_ozellikleri_goster(self):
+        print("Hayvanların Ortak Özellikleri")
+        print(self.hücre)
+        print(self.beslenme)
+        print(self.solunum)
+        print(self.çoğalma)
+        print(self.boşaltım)
+        print(self.yaşam_döngüsü)
+hayvan = Hayvanlar()
+
+class Kopekler(Hayvanlar):
+    def __init__(self,ozellikler="İyi yüzücülerdir\n4 ayaklıdırlar\nKoku duyuları çok gelişmiştir\nDost canlısıdırlar"):
+        super().__init__()
+        self.ozellikler = ozellikler
+
+    def kopek_ozellikleri_goster(self):
+        print("Köpeklerin Özellikleri")
+        print(self.ozellikler)
+kopek = Kopekler()
+class Kuslar(Hayvanlar):
+    def __init__(self,kusozellikler="Uçabilirler\nGagaları vardır\nYumurtlayarak çoğalırlar\nTüyleri vardır"):
+        super().__init__()
+        self.kusozellikler = kusozellikler
+
+    def kus_ozellikleri_goster(self):
+        print("Kuşların Özellikleri")
+        print(self.kusozellikler)
+kus = Kuslar()
+
+class Atlar(Hayvanlar):
+    def __init__(self,at_ozellikleri = "4 ayaklıdırlar\nOtçuldurlar\nHızlı koşarlar\nEğitilebilirler\nGüçlü ve dayanıklıdırlar"):
+        super().__init__()
+        self.at_ozellikleri = at_ozellikleri
+
+    def at_ozellikleri_goster(self):
+        print("Atların Özellikleri")
+        print(self.at_ozellikleri)
+at = Atlar()
+while True:
+    işlem = input("Seçmek istediğiniz işlemi seçiniz.")
+    if işlem == "q":
+        print("Çıkış Yapılıyor.")
+        time.sleep(1)
+        print("Çıkış Yapılmıştır.")
+        break
+    elif işlem =="1":
+        at.at_ozellikleri_goster()
+    elif işlem =="2":
+        kopek.kopek_ozellikleri_goster()
+    elif işlem == "3":
+        kus.kus_ozellikleri_goster()
+    elif işlem=="4":
+        hayvan.ortak_ozellikleri_goster()
+    else:
+        print("Geçerli işlem giriniz.")
+        time.sleep(1)
