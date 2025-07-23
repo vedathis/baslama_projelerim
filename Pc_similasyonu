@@ -1,0 +1,127 @@
+import random
+import time
+
+class Bilgisayar():
+    def __init__(self,pc_durum ="Kapalı",pc_bileşenler =["RAM,Ekran Kartı.Monitör,Power,Mouse,Kulaklık,Hoparlör,Klavye,SSD,HDD,"],pc_programlar =["Google"],pc_derece = "Bilinmiyor"):
+        
+        self.pc_durum = pc_durum
+        self.pc_bileşenler = pc_bileşenler
+        self.pc_programlar = pc_programlar
+        self.pc_derece = pc_derece
+
+    def pc_aç(self):
+        
+        if(self.pc_durum == "Açık"):
+            print("Bilgisayar zaten açık.")
+        else:
+            print("Bilgisayar Açılıyor...")
+            self.pc_durum ="Açık"
+
+    def pc_kapat(self):
+        
+        if(self.pc_durum == "Kapalı"):
+            print("Bilgisayar zaten kapalı.")
+        else:
+            print("Bilgisayar kapanıyor...")
+            self.pc_durum ="Kapalı"
+    
+    def program_yükleme(self, program_ismi):
+        
+        if program_ismi in self.pc_programlar:
+            
+            print("Bu program zaten yüklü.")
+        
+            return
+
+        print("Program yükleniyor...")
+        
+        time.sleep(1)
+        
+        self.pc_programlar.append(program_ismi)
+        
+        print("Program Yüklendi.")
+
+    def program_kaldırma(self,program_ismi):
+        if program_ismi in self.pc_programlar:
+            self.pc_programlar.remove(program_ismi)
+            print("Program kaldırıldı.")
+        else:
+            print("Program Bulunamadı.")
+        
+    def derece_kontrol(self):
+        self.pc_derece = random.randint(30, 100)
+        
+        print(f"Bilgisayarın sıcaklığı: {self.pc_derece}°C")
+
+        if self.pc_derece < 70:
+            print("Derece ideal.")
+        else:
+            print("Derece yüksek!")
+        
+    def __len__(self):
+        
+        return len(self.pc_bileşenler)
+    
+    def __str__(self):
+        return"Bilgisayar Durumu: {}\nBilgisayar Bileşenleri: {}\nBilgisayardaki Programlar: {}\nBilgisayarın Sıcaklığı: {}".format(self.pc_durum,self.pc_bileşenler,self.pc_programlar,self.pc_derece)
+
+bilgisayar = Bilgisayar()
+
+
+
+while True:
+    print("""
+
+    1.Pc Aç
+
+    2.Pc Kapat
+
+    3.Pc'ye Program Yükleme
+
+    4.Pc'den program kaldırma
+
+    5.Pc sıcaklık durumu kontrol etme
+
+    6.Bilgisayar hakkında bilgiler
+
+
+    Çıkmak için 'q' ya basınız.
+
+    """)
+
+
+    işlem = input("Yapmak istediğiniz işlemi seçiniz.")
+
+    if işlem == "q":
+        print("Kodlamadan Çıkılıyor...")
+        break
+    
+    elif işlem =="1":
+        
+        bilgisayar.pc_aç()
+        
+    elif işlem =="2":
+        
+        bilgisayar.pc_kapat()
+        
+    elif işlem=="3":
+        
+        isim = input("Yüklemek İstediğiniz programı yazınız:")
+        
+        bilgisayar.program_yükleme(isim)
+
+    elif işlem=="4":
+        
+        isim = input("Kaldırmak istediğiniz programı yazınız:")
+        
+        bilgisayar.program_kaldırma(isim)
+
+    elif işlem =="5":
+        
+        bilgisayar.derece_kontrol()
+
+    elif işlem =="6":
+        print(bilgisayar)
+
+    else:
+        print("Geçersiz işlem...")
