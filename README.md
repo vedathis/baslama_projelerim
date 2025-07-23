@@ -1,2 +1,2 @@
-# ba-lang-_projelerim
+#projelerim
 İlerlememi görmek için paylaşacağım projeler
