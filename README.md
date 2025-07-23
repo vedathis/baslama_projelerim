@@ -1,1 +1,1 @@
-Güncellenmeye başlıyorum.
+İlerlemeye çalışıyorum.
