@@ -1,0 +1,43 @@
+import time
+
+print("""****************************************___Hesap Makinesi___****************************************
+
+1. İşlem Toplama İşlemi
+2. İşlem Çıkarma İşlemi
+3. İşlem Çarpma İşlemi
+4. İşlem Bölme İşlemi
+
+Çıkmak İçin q tuşlayınız...
+
+*****************************************************************************************************""")
+
+while True:
+    işlem = input("İşlemi Giriniz (1-4 veya q): ")
+    if işlem == "q":
+        print("Çıkış Yapılıyor...")
+        time.sleep(1)
+        print("Çıkış Yapılmıştır.")
+        break
+
+    if işlem not in ("1", "2", "3", "4"):
+        print("Geçersiz işlem. Lütfen 1-4 arası veya q giriniz.")
+        continue
+
+    try:
+        a = int(input("1. Sayıyı Giriniz: "))
+        b = int(input("2. Sayıyı Giriniz: "))
+    except ValueError:
+        print("Geçersiz sayı girdiniz. Lütfen sadece tam sayı girin.")
+        continue
+
+    if işlem == "1":
+        print(f"{a} ile {b}'nin toplamı {a + b}'dir.")
+    elif işlem == "2":
+        print(f"{a} ile {b}'nin farkı {a - b}'dir.")
+    elif işlem == "3":
+        print(f"{a} ile {b}'nin çarpımı {a * b}'dir.")
+    elif işlem == "4":
+        if b == 0:
+            print("Bir sayı sıfıra bölünemez! Lütfen tekrar deneyin.")
+            continue
+        print(f"{a} ile {b}'nin bölümü {a / b}'dir.")
