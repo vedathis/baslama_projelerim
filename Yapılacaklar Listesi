@@ -1,0 +1,106 @@
+import time
+
+
+gorevler = []
+
+
+
+
+def gorev_ekle():
+    """Kullanıcıdan görev alır ve listeye ekler."""
+    gorev = input("Eklemek istediğiniz görevi yazınız: ")
+    gorevler.append(gorev)
+    print(f"'{gorev}' listeye eklendi.")
+
+
+def gorev_goruntule():
+    """Mevcut görevleri numaralandırarak görüntüler."""
+    print("\n--- YAPILACAKLAR LİSTESİ ---")
+
+    # Liste boşsa kontrolü
+    if not gorevler:
+        print("Listenizde henüz bir görev bulunmamaktadır.")
+        print("----------------------------\n")
+        return
+
+    # enumerate() ile her görev için hem indeksi (i) hem de değeri (gorev) alıyoruz.
+    for i, gorev in enumerate(gorevler):
+        # Kullanıcıya 1'den başlayan numara gösteriyoruz (i + 1)
+        print(f"{i + 1}- {gorev}")
+
+    print("----------------------------\n")
+
+
+def gorev_sil():
+    """Kullanıcıdan numara alarak listeden görev siler ve hata yönetimi yapar."""
+    gorev_goruntule()
+
+    # Liste boşsa, silme işlemine gerek yok.
+    if not gorevler:
+        return
+
+    print("Silme işleminden çıkmak için '0' tuşlayabilirsiniz.")
+
+    # --- HATA YÖNETİMİ BAŞLANGICI ---
+    try:
+        # 1. Girişi al ve hemen integer'a çevir (ValueError riski)
+        secilen_numara = int(input("Silmek istediğiniz görev numarasını giriniz: "))
+
+        # 2. Çıkış kontrolü
+        if secilen_numara == 0:
+            print("Silme işlemi iptal edildi.")
+            return
+
+        # 3. İndeks Dönüşümü: Kullanıcı numarası (1, 2, 3...) -> Python indeksi (0, 1, 2...)
+        silinecek_index = secilen_numara - 1
+
+        # 4. Silme İşlemi: .pop() IndexError verebilir (listede olmayan indekse erişim)
+        silinen_gorev_adi = gorevler.pop(silinecek_index)
+
+        print(f"\n'{silinen_gorev_adi}' başarıyla silindi.")
+
+    except ValueError:
+        # Kullanıcı sayı yerine harf (örneğin 'a') girdiğinde
+        print("HATA: Lütfen geçerli bir görev Numarası giriniz (örneğin: 1, 2).")
+
+    except IndexError:
+        # Kullanıcı listede olmayan bir numara girdiğinde
+        # 'secilen_numara' değişkeni tanımlanmamış olabilir, bu yüzden daha genel bir mesaj verelim
+        print(f"HATA: Listede olmayan veya geçersiz bir numara girdiniz.")
+
+    except Exception as e:
+        # Beklenmedik diğer hataları yakalar
+        print(f"Bilinmeyen bir hata oluştu: {e}")
+
+
+print("""******************************************************************
+                    Yapılacaklar listesi 
+******************************************************************
+
+1- Görev Ekle
+2- Görev Sil
+3- Görevleri Görüntüle
+4- Çıkış
+""")
+
+while True:
+    islem = input("Yapmak istediğiniz işlemi seçiniz (1-4): ")
+
+    if islem == "4":
+        print("Çıkış Yapılıyor...")
+        time.sleep(1)
+        print("Çıkış Yapılmıştır.")
+        break
+
+    elif islem == "1":
+        gorev_ekle()
+
+    elif islem == "2":
+        gorev_sil()
+
+    elif islem == "3":
+        gorev_goruntule()
+
+    else:
+        # Menüde olmayan bir seçim yapılırsa
+        print("HATA: Lütfen menüdeki geçerli bir işlem numarası (1, 2, 3 veya 4) giriniz.")
