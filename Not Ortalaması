@@ -1,0 +1,69 @@
+import time
+
+print("""**************************************************************************
+                                    Not Ortalaması
+**************************************************************************
+
+
+
+Değerleri giriniz ve cevaplar gelecektir.
+
+
+
+
+
+Çıkmak için "q" basınız""")
+while True:
+    vize = input("Vize Notunu Giriniz:")
+    if vize == "q":
+        print("Çıkış Yapılıyor...")
+        time.sleep(1)
+        print("Çıkış Yapılmıştır.")
+        break
+    try:
+        vize_giris =float(vize)
+    except ValueError:
+        print("Hatalı giriş Lütfen sayı veya 'q' giriniz")
+        continue
+
+    if vize_giris > 100:
+        print("100'ün üzerinde değer girilemez.")
+        continue
+    elif vize_giris < 0:
+        print("0'ın altında değer girilemez.")
+        continue
+
+
+    final = input("Final Notunu Giriniz:")
+    if final == "q":
+        print("Çıkış Yapılıyor...")
+        time.sleep(1)
+        print("Çıkış Yapılmıştır.")
+        break
+    try:
+        final_giris = float(final)
+    except ValueError:
+        print("Hatalı giriş Lütfen sayı veya 'q' giriniz")
+        continue
+    if final_giris > 100:
+        print("100'ün üzerinde değer girilemez.")
+        continue
+    elif final_giris < 0:
+        print("0'ın altında değer girilemez.")
+        continue
+
+    islem = (vize_giris * 0.40) + (final_giris * 0.60)
+
+
+    if islem >=90:
+        print(f" Sınavdan {islem:.2f} AA ile geçildi.")
+    elif islem >=85:
+        print(f" Sınavdan {islem:.2f} BA ile geçildi.")
+    elif islem >=70:
+        print(f" Sınavdan {islem:.2f} BB ile geçildi.")
+    elif islem >= 60:
+        print(f" Sınavdan {islem:.2f} CC ile geçildi.")
+    elif islem >= 50:
+        print(f" Sınavdan {islem:.2f} DD ile geçildi.")
+    else:
+        print(f" Sınavdan {islem:.2f} FF ile KALDI.")
