@@ -1,0 +1,97 @@
+import random
+import time
+
+
+def dosya_kontrol():
+    """Program başlarken dosyanın var olduğundan emin olur."""
+    try:
+        with open("kullanicilar.txt", "r") as file:
+            pass  # Dosya varsa bir şey yapma
+    except FileNotFoundError:
+        with open("kullanicilar.txt", "w") as file:
+            pass  # Dosya yoksa oluştur
+
+
+def kayit_ol():
+    kullanici_adi = input("Kullanıcı adınızı giriniz: ")
+    sifre = input("Şifre giriniz: ")
+
+    # --- 1. AŞAMA: KONTROL ---
+    kullanici_mevcut = False
+    try:
+        with open("kullanicilar.txt", "r") as file:
+            for satir in file:
+                mevcut_kullanici = satir.strip().split(',')[0]
+                if mevcut_kullanici == kullanici_adi:
+                    kullanici_mevcut = True
+                    break  # Kullanıcıyı bulduk, döngüyü durdur
+
+    except FileNotFoundError:
+        dosya_kontrol()  # Dosya yoksa oluştur
+    except Exception as e:
+        print(f"Hata oluştu: {e}")
+        return
+
+    # --- 2. AŞAMA: KARAR VE YAZMA (Döngünün Dışında) ---
+    if kullanici_mevcut:
+        print("HATA: Bu kullanıcı adı zaten alınmış.")
+    else:
+        # Kullanıcı mevcut değilse, dosyayı 'a' (append) moduyla aç ve YAZ
+        with open("kullanicilar.txt", "a") as file:
+            file.write(f"{kullanici_adi},{sifre}\n")
+        print("Kayıt başarıyla tamamlandı.")
+
+
+def giris_yap():
+    kullanici_adi = input("Kullanıcı adınızı giriniz: ")
+    sifre = input("Şifre giriniz: ")
+
+    try:
+        with open("kullanicilar.txt", "r") as file:
+            # 1. AŞAMA: EŞLEŞME ARAMA
+            for satir in file:
+                parcalar = satir.strip().split(',')
+                if len(parcalar) == 2:  # Satırın bozuk olmadığını kontrol et
+                    mevcut_kullanici = parcalar[0]
+                    mevcut_sifre = parcalar[1]
+
+                    if mevcut_kullanici == kullanici_adi and mevcut_sifre == sifre:
+                        time.sleep(1)
+                        print(f"{kullanici_adi} Hoşgeldiniz.")
+                        print(f"Giriş kodunuz: {random.randint(1000, 9999)}")
+                        return True  # Başarılı girişi ana programa bildir
+
+        # 2. AŞAMA: HATA VERME (Döngünün Dışında)
+        # Eğer döngü biterse ve 'return True' hiç çalışmazsa, bu satıra gelinir.
+        print("Kullanıcı adı veya şifre hatalı.")
+        return False
+
+    except FileNotFoundError:
+        print("Kayıtlı kullanıcı bulunamadı.")
+        return False
+    except Exception as e:
+        print(f"Hata: {e}")
+        return False
+
+
+
+dosya_kontrol()  # Program başlarken dosya var mı diye bak
+
+while True:
+    print("\n--- MENÜ ---")
+    print("1- Kayıt Ol")
+    print("2- Giriş Yap")
+    print("3- Çıkış")
+    islem = input("Seçiminiz: ")
+
+    if islem == "1":
+        kayit_ol()
+    elif islem == "2":
+        giris_basarili_mi = giris_yap()
+        if giris_basarili_mi:
+            break  # Giriş başarılıysa ana menü döngüsünü kır
+    elif islem == "3":
+        print("Çıkış yapılıyor...")
+        break
+    else:
+        print("Geçersiz seçim.")
